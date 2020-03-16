@@ -1,0 +1,22 @@
+[
+    {
+        "title": "New Title",
+        "text": "Again another note\nss",
+        "id": 0
+    },
+    {
+        "title": "Second entry in ",
+        "text": "this note will be a bit longer.",
+        "id": 1
+    },
+    {
+        "title": "ENtry 3",
+        "text": "message",
+        "id": 2
+    },
+    {
+        "title": "Entry #4",
+        "text": "message for the fourth entry",
+        "id": 3
+    }
+]
