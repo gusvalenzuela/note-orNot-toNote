@@ -9,12 +9,11 @@ html, body {
 }
 .bg-grv{
   background-color: #56f517;
-  
 }
 .navbar a{
   text-decoration: none;
-  color: #000;
-  font-weight: 800;
+  color: #000 !important;
+  font-weight: 900;
   font-size: 1.3em;
 }
 
@@ -34,7 +33,7 @@ html, body {
 
 .note-textarea {
   resize: none;
-  height: calc(100% - 63px);
+  height: calc(80% - 63px);
   padding-top: 15px;
 }
 
@@ -49,10 +48,13 @@ html, body {
 }
 
 .list-container .card {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 100px);
   border-bottom: none;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
+}
+.bg-grv-dark{
+  background: #000, url(../images/white-waves.png);
 }
 
 .list-container {

@@ -4,7 +4,6 @@ const path = require("path");
 const fs = require(`fs`)
 const util = require("util")
 const express = require("express");
-const axios = require(`axios`)
 
 // Sets up the Express App
 // =============================================================
@@ -15,16 +14,20 @@ const PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Various useful constants
 const readFile = util.promisify(fs.readFile)
+const dbJSONLocation = `./Develop/db/db.json`
 
-const notes = [];
+
 // Routes
 // =============================================================
 
-// Basic route that sends the user first to the AJAX Page
+// Basic route that sends the user first to the index page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/Develop/public/index.html"));
 })
+
+// basic route from any first paramater
 app.get("/:input", function (req, res) {
   let term = req.params.input
 
@@ -33,16 +36,9 @@ app.get("/:input", function (req, res) {
       res.sendFile(path.join(__dirname, "/Develop/public/notes.html"));
       break
     default:
-      res.sendFile(path.join(__dirname, "/Develop/public/index.html"));
+      res.status(404).sendFile(path.join(__dirname, "/Develop/public/404err.html"))
   }
 });
-// app.get(`/api/notes`, res=>{
-//   fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
-//     if (err) throw err
-//     // notes.push(data)
-//     res.json(JSON.parse(data))
-//   })
-// } )
 
 app.get("/api/:input", function (req, res) {
   let term = req.params.input
@@ -50,7 +46,7 @@ app.get("/api/:input", function (req, res) {
   switch (term) {
     // GET `/api/notes` - Should read the `db.json` file and return all saved notes as JSON.
     case "notes":
-      fs.readFile("./Develop/db/db.json", "utf8", (err, data) => {
+      fs.readFile(dbJSONLocation, "utf8", (err, data) => {
         if (err) throw err
         // notes.push(data)
         res.json(JSON.parse(data))
@@ -61,18 +57,18 @@ app.get("/api/:input", function (req, res) {
   }
 
 });
-// return the correct js and css file referenced in html files
+// return the correct js and css files referenced in html files
 app.get(`/assets/js/index.js`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/js/index.js`)) })
 app.get(`/assets/css/styles.css`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/css/styles.css`)) })
 
 // Create New Notes - takes in JSON input
 // POST `/api/notes` 
 app.post("/api/notes", function (req, res) {
-  const fileLocation = `./Develop/db/db.json`
+
   let newNote = req.body      // - Should receive a new note to save on the request body, 
 
   // add it to the `db.json` file, 
-  readFile(fileLocation, "utf8", (err, data) => {
+  readFile(dbJSONLocation, "utf8", (err, data) => {
     if (err) throw err
 
     const dbNotes = JSON.parse(data)        // parse data from json file into array
@@ -82,12 +78,12 @@ app.post("/api/notes", function (req, res) {
       dbNotes[i].id = i
     }
     // write new array to same json
-    fs.writeFile(fileLocation, JSON.stringify(dbNotes), err => {
+    fs.writeFile(dbJSONLocation, JSON.stringify(dbNotes), err => {
       if (err) throw err
     })
     return newNote
   })
-  
+
   res.sendFile(path.join(__dirname,`/Develop/public/notes.html`))
 });
 
@@ -97,7 +93,7 @@ app.delete(`/api/notes/:id`, (req, res) => {
   const noteID = req.params.id
 
   //  In order to delete a note, you'll need to read all notes from the `db.json` file, 
-  readFile(__dirname + `/Develop/db/db.json`, `utf8`, (err, d) => {
+  readFile(dbJSONLocation, `utf8`, (err, d) => {
     if (err) throw err
 
     const data = JSON.parse(d)      // parse the file's data into json format onto variable
