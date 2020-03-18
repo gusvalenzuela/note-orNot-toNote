@@ -67,24 +67,45 @@ app.post("/api/notes", function (req, res) {
 
   let newNote = req.body      // - Should receive a new note to save on the request body, 
 
+  // if(newNote.id){
+  //   console.log(newNote.id)
+  // } else{
+  //   console.log(`There appears to be no id on this newNote`)
+  // }
+
   // add it to the `db.json` file, 
   readFile(dbJSONLocation, "utf8", (err, data) => {
     if (err) throw err
+    const savedNotes = JSON.parse(data)        // parse data from json file into array
+    let updatedNotes = savedNotes
 
-    const dbNotes = JSON.parse(data)        // parse data from json file into array
-    dbNotes.push(newNote);                  // push new note into array
-
-    for (let i = 0; i < dbNotes.length; i++) {
-      dbNotes[i].id = i
+    // if the received new note already has an id find the note and update it
+    if (newNote.id) {
+      newNote.id = parseInt(newNote.id)
+      updatedNotes = savedNotes.map(data => {
+        if (data.id === newNote.id) {
+          return newNote
+        }
+        return data
+      })
+    } else {
+      updatedNotes.push(newNote);                  // else push new note into array
     }
-    // write new array to same json
-    fs.writeFile(dbJSONLocation, JSON.stringify(dbNotes), err => {
+
+    // giving all my notes an ID here
+    // allows me to differentiate between NEW notes and UPDATED notes before saving
+    for (let i = 0; i < updatedNotes.length; i++) {
+      updatedNotes[i].id = i
+    }
+    
+    // write updated array to same json file
+    fs.writeFile(dbJSONLocation, JSON.stringify(updatedNotes), err => {
       if (err) throw err
     })
     return newNote
   })
 
-  res.sendFile(path.join(__dirname,`/Develop/public/notes.html`))
+  res.sendFile(path.join(__dirname, `/Develop/public/notes.html`))
 });
 
 // * DELETE `/api/notes/:id` - 

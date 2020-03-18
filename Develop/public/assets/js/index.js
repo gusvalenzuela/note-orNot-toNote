@@ -39,8 +39,8 @@ var renderActiveNote = function () {
   $saveNoteBtn.hide();
 
   if (activeNote.id) {
-    $noteTitle.attr("readonly", true);
-    $noteText.attr("readonly", true);
+    $noteTitle.attr("readonly", false);
+    $noteText.attr("readonly", false);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
   } else {
@@ -58,9 +58,13 @@ const handleNoteSave = () => {
     text: $noteText.val()
   };
 
+  if (activeNote.id !== undefined) {
+    newNote.id = activeNote.id
+  }
+
   saveNote(newNote).then(function (data) {
     getAndRenderNotes();
-    renderActiveNote();
+    // renderActiveNote();
   });
 };
 

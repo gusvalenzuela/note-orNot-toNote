@@ -3,3 +3,7 @@
 
 ## DESCRIPTION
 - 
+
+## TODOs
+- Create Dark/Light Mode toggle
+- Fix footer overall
