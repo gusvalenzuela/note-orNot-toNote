@@ -40,11 +40,13 @@ var renderActiveNote = function () {
   $saveNoteBtn.hide();
 
   if (activeNote.id || activeNote.id === 0 ) {
+    $editNoteBtn.show()
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
   } else {
+    $editNoteBtn.hide()
     $noteTitle.attr("readonly", false);
     $noteText.attr("readonly", false);
     $noteTitle.val("");
@@ -56,7 +58,8 @@ const flashActive = () => {
   listItems.forEach(i =>{
     let data = $(i).data()
     if(data.id === activeNote.id){
-      $(i).attr(`style`,`background: #56f517;`)
+      $(i).attr(`style`,`background: #37c400;`)
+
       setTimeout(()=>{
         $(i).attr(`style`,``)
       }, 700)
@@ -75,8 +78,8 @@ const handleEdits = () => {
 const handleNoteSave = () => {
   flashActive()
   var newNote = {
-    title: $noteTitle.val(),
-    text: $noteText.val()
+    title: $noteTitle.val().trim(),
+    text: $noteText.val().trim()
   };
 
   // if the note is not a "new" note (i.e. it already has an ID)
@@ -131,7 +134,6 @@ var handleNewNoteView = function () {
 var handleRenderSaveBtn = function () {
   if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
     $saveNoteBtn.hide();
-    $editNoteBtn.hide();
   } else {
     $saveNoteBtn.show();
   }
@@ -161,9 +163,9 @@ var renderNoteList = function (notes) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function () {
+  $editNoteBtn.hide()
   return getNotes().then(function (data) {
     renderNoteList(data);
-    
   });
 };
 
