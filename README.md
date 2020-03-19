@@ -8,8 +8,6 @@ A simple application that takes an input for a note title and some text. After b
 
 
 ## TODOs
-- Fix bug with first note showing "blank note" as active text
 - Create Dark/Light Mode toggle
 - Fix footer overall
 - Add "updated / saved" text when action occurs
-- Fix left column overflow

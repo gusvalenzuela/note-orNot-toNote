@@ -39,7 +39,7 @@ var deleteNote = function (id) {
 var renderActiveNote = function () {
   $saveNoteBtn.hide();
 
-  if (activeNote.id) {
+  if (activeNote.id || activeNote.id === 0 ) {
     $noteTitle.attr("readonly", true);
     $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
@@ -64,6 +64,7 @@ const flashActive = () => {
   })
 }
 const handleEdits = () => {
+  
   $noteTitle.attr("readonly", false);
   $noteText.attr("readonly", false);
 
@@ -130,6 +131,7 @@ var handleNewNoteView = function () {
 var handleRenderSaveBtn = function () {
   if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
     $saveNoteBtn.hide();
+    $editNoteBtn.hide();
   } else {
     $saveNoteBtn.show();
   }
@@ -161,6 +163,7 @@ var renderNoteList = function (notes) {
 var getAndRenderNotes = function () {
   return getNotes().then(function (data) {
     renderNoteList(data);
+    
   });
 };
 
