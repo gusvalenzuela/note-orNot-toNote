@@ -67,12 +67,6 @@ app.post("/api/notes", function (req, res) {
 
   let newNote = req.body      // - Should receive a new note to save on the request body, 
 
-  // if(newNote.id){
-  //   console.log(newNote.id)
-  // } else{
-  //   console.log(`There appears to be no id on this newNote`)
-  // }
-
   // add it to the `db.json` file, 
   readFile(dbJSONLocation, "utf8", (err, data) => {
     if (err) throw err
@@ -105,7 +99,7 @@ app.post("/api/notes", function (req, res) {
     return newNote
   })
 
-  res.sendFile(path.join(__dirname, `/Develop/public/notes.html`))
+  res.end()
 });
 
 // * DELETE `/api/notes/:id` - 

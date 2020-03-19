@@ -1,9 +1,10 @@
 var $noteTitle = $(".note-title");
 var $noteText = $(".note-textarea");
+var $editNoteBtn = $(".edit-note");
 var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
-
+const listItems = $noteList[0].childNodes
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
 
@@ -39,8 +40,8 @@ var renderActiveNote = function () {
   $saveNoteBtn.hide();
 
   if (activeNote.id) {
-    $noteTitle.attr("readonly", false);
-    $noteText.attr("readonly", false);
+    $noteTitle.attr("readonly", true);
+    $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
     $noteText.val(activeNote.text);
   } else {
@@ -50,22 +51,45 @@ var renderActiveNote = function () {
     $noteText.val("");
   }
 };
+const flashActive = () => {
+  // finding the corresponding list item to manipulate
+  listItems.forEach(i =>{
+    let data = $(i).data()
+    if(data.id === activeNote.id){
+      $(i).attr(`style`,`background: #56f517;`)
+      setTimeout(()=>{
+        $(i).attr(`style`,``)
+      }, 700)
+    }
+  })
+}
+const handleEdits = () => {
+  $noteTitle.attr("readonly", false);
+  $noteText.attr("readonly", false);
+
+  flashActive()
+}
+
 
 // Get the note data from the inputs, save it to the db and update the view
 const handleNoteSave = () => {
+  flashActive()
   var newNote = {
     title: $noteTitle.val(),
     text: $noteText.val()
   };
 
+  // if the note is not a "new" note (i.e. it already has an ID)
+  // give the newNote the active ID (so POST in server can update an existing note instead of saving a new one)
   if (activeNote.id !== undefined) {
     newNote.id = activeNote.id
   }
-
+  
   saveNote(newNote).then(function (data) {
     getAndRenderNotes();
-    // renderActiveNote();
+    // renderActiveNote();        // turning this off for now (renders pre-updated note)
   });
+
 };
 
 // Delete the clicked note
@@ -141,6 +165,7 @@ var getAndRenderNotes = function () {
   });
 };
 
+$editNoteBtn.on("click", handleEdits);
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);
 $newNoteBtn.on("click", handleNewNoteView);
