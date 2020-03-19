@@ -7,10 +7,12 @@ html, body {
 .save-note {
   display: none;
 }
-.bg-grv{
+
+.bg-grv {
   background-color: #56f517;
 }
-.navbar a{
+
+.navbar a {
   text-decoration: none;
   color: #000 !important;
   font-weight: 900;
@@ -22,6 +24,17 @@ html, body {
   margin-right: 15px;
   font-size: 1.66rem;
   cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+  .navbar a {
+    font-size: 1em;
+  }
+  .icons i {
+    font-size: 1.1rem;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
 }
 
 .note-textarea, .note-title {
@@ -48,12 +61,13 @@ html, body {
 }
 
 .list-container .card {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 200px);
   border-bottom: none;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.bg-grv-dark{
+
+.bg-grv-dark {
   background: #000, url(../images/white-waves.png);
 }
 
@@ -61,9 +75,11 @@ html, body {
   padding-left: 0;
 }
 
-.list-container .list-group,
-.list-container .list-group-item:first-child,
-.list-container .card {
+.list-container .list-group {
+  overflow: auto;
+}
+
+.list-container .list-group, .list-container .list-group-item:first-child, .list-container .card {
   border-top: none;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -85,11 +101,13 @@ html, body {
   background-color: #000;
   color: #ffffff;
   border-top: 8px solid #4aaaa5;
-} 
-.footer-link{
+}
+
+.footer-link {
   text-decoration: none;
   color: #ffffff;
 }
-.footer-link:hover{
+
+.footer-link:hover {
   color: #4aaaa5;
 }
