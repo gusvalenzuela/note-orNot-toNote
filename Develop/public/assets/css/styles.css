@@ -38,6 +38,9 @@ html, body {
     margin-left: 7px;
     margin-right: 7px;
   }
+  .instructions{
+    font-size: small;
+  }
 }
 
 .note-textarea, .note-title {
@@ -101,6 +104,11 @@ html, body {
   padding: 20px;
   cursor: pointer;
 }
+.instructions{
+  background: rgba(255, 0, 0, 0.205);
+  padding: 5px;
+}
+
 
 .footer {
   position: fixed;
