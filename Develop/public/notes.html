@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="/public/assets/css/styles.css">
 </head>
 
 <body>
@@ -34,22 +34,25 @@
       <div class="col-7 col-md-8">
         <input class="note-title my-2" placeholder="Note Title" maxlength="32" type="text">
         <textarea class="note-textarea w-100 mb-2" placeholder="Note Text"></textarea>
-        <p class="instructions">> Tip: Select a note & click "Edit" to update it.
-          <!-- <i class="fas fa-times" style="font-size: xx-small;"></i> -->
-        </p>
+        <div class="instructions">
+          <i class="fas fa-times close-icon" style="font-size: small;"></i>
+          <p>> Tip: Select a note & click "Edit" to update it.
+          </p>
+        </div>
       </div>
     </div>
   </div>
 
   <footer class="footer container-fluid bg-ucd ">
     <div class="container-lg py-3 text-center footer-grv">
-      &copy; 2020 <a href="https://gusvalenzuela.github.io/gusval-site-bs/portfolio.html">\\ gus Valenzuela</a> <a href="https://github.com/gusvalenzuela/note-orNot-toNote">\\ code</a>
+      &copy; 2020 <a href="https://gusvalenzuela.github.io/gusval-site-bs/portfolio.html">\\ gus Valenzuela</a> <a
+        href="https://github.com/gusvalenzuela/note-orNot-toNote">\\ source code</a>
     </div>
   </footer>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script defer src="./assets/js/index.js"></script>
+  <script defer src="/public/assets/js/index.js"></script>
 </body>
 
 </html>

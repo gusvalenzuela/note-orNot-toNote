@@ -42,7 +42,11 @@ html, body {
     font-size: small;
   }
 }
-
+.close-icon{
+  float: right;
+  margin-left: .5em;
+  margin-bottom: .5em;
+}
 .note-textarea, .note-title {
   color: #000000;
   width: 100%;

@@ -4,7 +4,11 @@ var $editNoteBtn = $(".edit-note");
 var $saveNoteBtn = $(".save-note");
 var $newNoteBtn = $(".new-note");
 var $noteList = $(".list-container .list-group");
-const listItems = $noteList[0].childNodes
+let listItems;
+if($noteList[0]){
+  listItems = $noteList[0].childNodes
+}
+const $closeIcon = $(`.close-icon`)
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
 
@@ -168,7 +172,15 @@ var getAndRenderNotes = function () {
     renderNoteList(data);
   });
 };
+const hideDiv = (e) => {
+  e.stopPropagation()
+  let parentDiv = $(e.target.parentNode)
+  parentDiv.hide()
+  // console.log(parentDiv)
+}
 
+
+$closeIcon.on( `click`, hideDiv)
 $editNoteBtn.on("click", handleEdits);
 $saveNoteBtn.on("click", handleNoteSave);
 $noteList.on("click", ".list-group-item", handleNoteView);

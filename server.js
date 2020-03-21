@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static('Develop'))
 
 // Various useful constants
 const readFile = util.promisify(fs.readFile)
@@ -58,8 +59,8 @@ app.get("/api/:input", function (req, res) {
 
 });
 // return the correct js and css files referenced in html files
-app.get(`/assets/js/index.js`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/js/index.js`)) })
-app.get(`/assets/css/styles.css`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/css/styles.css`)) })
+// app.get(`/assets/js/index.js`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/js/index.js`)) })
+// app.get(`/assets/css/styles.css`, (req, res) => { res.sendFile(path.join(__dirname, `/Develop/public/assets/css/styles.css`)) })
 
 // Create New Notes - takes in JSON input
 // POST `/api/notes` 
